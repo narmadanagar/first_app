@@ -14,11 +14,57 @@ import { ProfileImage } from "./component";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      text: "WOW"
+      name: "",
+      email: "",
+      message: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(e) {
+    console.log(this.state);
+    const target = e.target;
+    const value = target.value;
+    const id = target.id;
+    this.setState({
+      [id]: value
+    });
+  }
+
+  async handleSubmit() {
+    // alert('name: ' + this.state.name + ' ' + 'email: ' + this.state.email + ' ' + 'message: ' + this.state.message);
+    try {
+      let res = await fetch("http://localhost:8080/contact", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(this.state)
+      });
+
+      res = await res.json();
+      console.log(res);
+
+      var y = res.value;
+      console.log(y);
+    } catch (err) {
+      console.error(err);
+    }
+
+    if (y === 1) {
+      alert("Empty fields");
+    } else if (y === 2) {
+      alert("Email should have @ and .");
+    } else if (y === 0) {
+      alert("Form sent successfully");
+    }
+
+    this.setState({ name: "", email: "", message: "" });
+  }
+
   render() {
     return (
       <div>
@@ -66,13 +112,36 @@ class App extends Component {
           <Row style={{ textAlign: "center" }}>
             <h3>Contact Us</h3>
           </Row>
-          Title: <FormControl placeholder="Title" />
-          Contact Number: <FormControl placeholder="Contact number" />
-          Message: <FormControl placeholder="Message" />
-          <br />
-          <Button onClick={() => this.setState({})} bsStyle="primary">
-            Submit
-          </Button>
+          <form>
+            <div>Name:</div>
+            <FormControl
+              id="name"
+              type="text"
+              placeholder="Name"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+            <div>Email:</div>
+            <FormControl
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <div>Message:</div>
+            <FormControl
+              id="message"
+              componentClass="textarea"
+              placeholder="Type your message over here"
+              value={this.state.message}
+              onChange={this.handleChange}
+            />
+
+            <Button onClick={this.handleSubmit} bsStyle="primary">
+              Submit
+            </Button>
+          </form>
         </Col>
       </div>
     );
