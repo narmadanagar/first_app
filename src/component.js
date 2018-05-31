@@ -16,3 +16,5 @@ export const ProfileImage = styled(Image)`
 export const InfoInput = styled(FormControl)`
   width: 100vh;
 `;
+
+Col: padding: "1000px";

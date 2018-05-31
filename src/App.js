@@ -29,6 +29,7 @@ class App extends Component {
     const target = e.target;
     const value = target.value;
     const id = target.id;
+
     this.setState({
       [id]: value
     });
@@ -68,81 +69,83 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Col xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
-          <Row>
-            <h3>Profile</h3>
-          </Row>
-          <Row>
-            <ProfileImage rectangle src={picture} />
-          </Row>
-          <Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Name
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Nidhi Singh
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Email
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                nms@equitasls.com
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Phone number
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                603-443-3435
-              </Col>
+        <Row>
+          <Col xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
+            <Row>
+              <h3>Profile</h3>
             </Row>
             <Row>
-              <br />
+              <ProfileImage rectangle src={picture} />
             </Row>
-            <Button bsStyle="primary" bsSize="small">
-              Edit
-            </Button>
-          </Row>
-        </Col>
-        <Col xs={12} md={6} lg={6}>
-          <Row style={{ textAlign: "center" }}>
-            <h3>Contact Us</h3>
-          </Row>
-          <form>
-            <div>Name:</div>
-            <FormControl
-              id="name"
-              type="text"
-              placeholder="Name"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-            <div>Email:</div>
-            <FormControl
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-            <div>Message:</div>
-            <FormControl
-              id="message"
-              componentClass="textarea"
-              placeholder="Type your message over here"
-              value={this.state.message}
-              onChange={this.handleChange}
-            />
+            <Row>
+              <Row style={{ textAlign: "left", margin: "auto" }}>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  Name
+                </Col>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  Nidhi Singh
+                </Col>
+              </Row>
+              <Row style={{ textAlign: "left", margin: "auto" }}>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  Email
+                </Col>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  nms@equitasls.com
+                </Col>
+              </Row>
+              <Row style={{ textAlign: "left", margin: "auto" }}>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  Phone number
+                </Col>
+                <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
+                  603-443-3435
+                </Col>
+              </Row>
+              <Row>
+                <br />
+              </Row>
+              <Button bsStyle="primary" bsSize="small">
+                Edit
+              </Button>
+            </Row>
+          </Col>
+          <Col xs={12} md={6} lg={6}>
+            <Row style={{ textAlign: "center" }}>
+              <h3>Contact Us</h3>
+            </Row>
+            <form>
+              <div>Name:</div>
+              <FormControl
+                id="name"
+                type="text"
+                placeholder="Name"
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+              <div>Email:</div>
+              <FormControl
+                id="email"
+                type="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <div>Message:</div>
+              <FormControl
+                id="message"
+                componentClass="textarea"
+                placeholder="Type your message over here"
+                value={this.state.message}
+                onChange={this.handleChange}
+              />
 
-            <Button onClick={this.handleSubmit} bsStyle="primary">
-              Submit
-            </Button>
-          </form>
-        </Col>
+              <Button onClick={this.handleSubmit} bsStyle="primary">
+                Submit
+              </Button>
+            </form>
+          </Col>
+        </Row>
       </div>
     );
   }
