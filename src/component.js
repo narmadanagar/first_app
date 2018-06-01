@@ -7,14 +7,19 @@ import {
   ButtonToolbar,
   FormControl
 } from "react-bootstrap";
+import ImageGallery from "react-image-gallery";
 
 /* const, let, var */
-export const ProfileImage = styled(Image)`
-  width: 300px;
+
+export const SlideShow = styled(ImageGallery)`
+  width: 30px;
+  height: 20px;
 `;
 
 export const InfoInput = styled(FormControl)`
   width: 100vh;
 `;
 
-Col: padding: "1000px";
+export const buttonStyle = styled(Button)`
+  padding: 10vh;
+`;
