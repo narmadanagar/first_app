@@ -1,0 +1,32 @@
+@import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
+
+.image-gallery-slide img {
+  width: auto;
+  height: 60vh;
+}
+
+.image-gallery-play-button::before {
+  display: none;
+}
+
+.image-gallery-fullscreen-button::before {
+  display: none;
+}
+
+.image-gallery-thumbnail img {
+  vertical-align: middle;
+  width: auto;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.image-gallery-thumbnail.active {
+  opacity: 1;
+  border: none;
+  width: auto;
+}
+
+.image-gallery-thumbnail {
+  width: none;
+  opacity: 0.4;
+}

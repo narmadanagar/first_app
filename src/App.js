@@ -1,79 +1,162 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import picture from "./mood-smiley-face.jpg";
+import picture1 from "./nidhi.jpg";
+import picture2 from "./Nidhi_Gretch.jpg";
+import picture3 from "./Nidhi_Farha.jpg";
+
+import thumbnail1 from "./nidhi.jpg";
+import thumbnail2 from "./Nidhi_Gretch.jpg";
+import thumbnail3 from "./Nidhi_Farha.jpg";
+
+import ImageGallery from "react-image-gallery";
+
 import {
   Row,
   Col,
   Image,
   Button,
   ButtonToolbar,
-  FormControl
+  FormControl,
+  FormGroup,
+  ControlLabel,
+  HelpBlock
 } from "react-bootstrap";
-import { ProfileImage } from "./component";
+
+import { CenterLines } from "./CenterLines";
+import { CreateTable } from "./ContactForm";
+
+import { FieldGroup } from "./ContactForm";
+
+import { FormButton } from "./ContactForm";
+
+import { ProfileImage, WrapperDiv, SlideShow } from "./component";
+
+import "./style.css";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      text: "WOW"
+      name: "",
+      email: "",
+      message: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleChange(e) {
+    console.log(this.state);
+    const target = e.target;
+    const value = target.value;
+    const id = target.id;
+
+    this.setState({
+      [id]: value
+    });
+  }
+
+  async handleSubmit() {
+    // alert('name: ' + this.state.name + ' ' + 'email: ' + this.state.email + ' ' + 'message: ' + this.state.message);
+    try {
+      let res = await fetch("http://localhost:8080/contact", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(this.state)
+      });
+
+      res = await res.json();
+      console.log(res);
+
+      var y = res.value;
+      console.log(y);
+    } catch (err) {
+      console.error(err);
+    }
+
+    if (y === 1) {
+      alert("Empty fields");
+    } else if (y === 2) {
+      alert("Email should have @ and .");
+    } else if (y === 0) {
+      alert("Form sent successfully");
+    }
+
+    this.setState({ name: "", email: "", message: "" });
+  }
+
   render() {
+    // images for the slideshow
+    const images = [
+      {
+        original: picture1,
+        thumbnail: thumbnail1
+      },
+      {
+        original: picture2,
+        thumbnail: thumbnail2
+      },
+      {
+        original: picture3,
+        thumbnail: thumbnail3
+      }
+    ];
+
     return (
-      <div>
-        <Col xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
-          <Row>
-            <h3>Profile</h3>
-          </Row>
-          <Row>
-            <ProfileImage rectangle src={picture} />
-          </Row>
-          <Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Name
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Nidhi Singh
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Email
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                nms@equitasls.com
-              </Col>
-            </Row>
-            <Row style={{ textAlign: "left", margin: "auto" }}>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                Phone number
-              </Col>
-              <Col xs={6} md={6} lg={6} style={{ textAlign: "center" }}>
-                603-443-3435
-              </Col>
-            </Row>
+      <div style={{ padding: "5vh" }}>
+        <Row>
+          {/* The First Half of the layout, includes image and intro*/}
+          <Col xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
+            {/* The SlideShow Images */}
             <Row>
-              <br />
+              <SlideShow items={images} />
             </Row>
-            <Button bsStyle="primary" bsSize="small">
-              Edit
-            </Button>
-          </Row>
-        </Col>
-        <Col xs={12} md={6} lg={6}>
-          <Row style={{ textAlign: "center" }}>
-            <h3>Contact Us</h3>
-          </Row>
-          Title: <FormControl placeholder="Title" />
-          Contact Number: <FormControl placeholder="Contact number" />
-          Message: <FormControl placeholder="Message" />
-          <br />
-          <Button onClick={() => this.setState({})} bsStyle="primary">
-            Submit
-          </Button>
-        </Col>
+
+            {/* The Introduction paragraphs */}
+            <CenterLines
+              name="Nidhi Singh"
+              email="nms@equitasls.com"
+              phoneNum="603-443-3435"
+            />
+          </Col>
+
+          {/* The Second Half of the layout, includes contact form*/}
+          <Col xs={12} md={6} lg={6}>
+            <CreateTable title="Contact Form">
+              <FieldGroup
+                id="name"
+                placeHolder="Type your name"
+                type="text"
+                label="Name"
+                valueIn={this.state.name}
+                onChangeIn={this.handleChange}
+              />
+              <FieldGroup
+                id="email"
+                placeHolder="Type your email"
+                type="email"
+                label="Email"
+                valueIn={this.state.email}
+                onChangeIn={this.handleChange}
+              />
+              <FieldGroup
+                id="message"
+                placeHolder="Type a message"
+                type="text"
+                label="Message"
+                valueIn={this.state.message}
+                onChangeIn={this.handleChange}
+              />
+              <FormButton
+                handleSubmit={this.handleSubmit}
+                buttonText="Submit"
+                buttonStyle="primary"
+              />
+            </CreateTable>
+          </Col>
+        </Row>
       </div>
     );
   }
