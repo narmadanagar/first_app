@@ -16,8 +16,18 @@ import {
   Image,
   Button,
   ButtonToolbar,
-  FormControl
+  FormControl,
+  FormGroup,
+  ControlLabel,
+  HelpBlock
 } from "react-bootstrap";
+
+import { CenterLines } from "./CenterLines";
+import { CreateTable } from "./ContactForm";
+
+import { FieldGroup } from "./ContactForm";
+
+import { FormButton } from "./ContactForm";
 
 import { ProfileImage, WrapperDiv, SlideShow } from "./component";
 
@@ -97,67 +107,54 @@ class App extends Component {
     return (
       <div style={{ padding: "5vh" }}>
         <Row>
+          {/* The First Half of the layout, includes image and intro*/}
           <Col xs={12} md={6} lg={6} style={{ textAlign: "center" }}>
+            {/* The SlideShow Images */}
             <Row>
               <SlideShow items={images} />
             </Row>
-            <Row style={{ padding: "5vh" }}>
-              <Col xs={12} md={12} lg={12} style={{ textAlign: "center" }}>
-                Nidhi Singh
-              </Col>
-              <Col xs={12} md={12} lg={12} style={{ textAlign: "center" }}>
-                nms@equitasls.com
-              </Col>
-              <Col xs={12} md={12} lg={12} style={{ textAlign: "center" }}>
-                603-443-3435
-              </Col>
-              <Row />
-            </Row>
-          </Col>
-          <Col xs={12} md={6} lg={6}>
-            <Row style={{ textAlign: "center" }}>
-              <h3>Contact Me</h3>
-            </Row>
-            <form
-              style={{
-                padding: "10px",
-                backgroundColor: "rgba(192, 251, 251, 0.5)"
-              }}
-            >
-              <div style={{ padding: "1vh" }}>Name:</div>
-              <FormControl
-                style={{ padding: "1vh" }}
-                id="name"
-                type="text"
-                placeholder="Name"
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-              <div style={{ padding: "1vh" }}>Email:</div>
-              <FormControl
-                style={{ padding: "1vh" }}
-                id="email"
-                type="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <div style={{ padding: "1vh" }}>Message:</div>
-              <FormControl
-                style={{ padding: "1vh" }}
-                id="message"
-                componentClass="textarea"
-                placeholder="Type your message over here"
-                value={this.state.message}
-                onChange={this.handleChange}
-              />
 
-              <div style={{ paddingTop: "1vh" }}>
-                <Button onClick={this.handleSubmit} bsStyle="primary">
-                  Submit
-                </Button>
-              </div>
-            </form>
+            {/* The Introduction paragraphs */}
+            <CenterLines
+              name="Nidhi Singh"
+              email="nms@equitasls.com"
+              phoneNum="603-443-3435"
+            />
+          </Col>
+
+          {/* The Second Half of the layout, includes contact form*/}
+          <Col xs={12} md={6} lg={6}>
+            <CreateTable title="Contact Form">
+              <FieldGroup
+                id="name"
+                placeHolder="Type your name"
+                type="text"
+                label="Name"
+                valueIn={this.state.name}
+                onChangeIn={this.handleChange}
+              />
+              <FieldGroup
+                id="email"
+                placeHolder="Type your email"
+                type="email"
+                label="Email"
+                valueIn={this.state.email}
+                onChangeIn={this.handleChange}
+              />
+              <FieldGroup
+                id="message"
+                placeHolder="Type a message"
+                type="text"
+                label="Message"
+                valueIn={this.state.message}
+                onChangeIn={this.handleChange}
+              />
+              <FormButton
+                handleSubmit={this.handleSubmit}
+                buttonText="Submit"
+                buttonStyle="primary"
+              />
+            </CreateTable>
           </Col>
         </Row>
       </div>
